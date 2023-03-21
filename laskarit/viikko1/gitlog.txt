@@ -1,0 +1,113 @@
+commit a28d49e588eac58ce21f6ec585ba02dbbc2407f9
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 15:51:26 2023 +0200
+
+    lisätään uudelleennimetty tiedosto
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit b8de2464b27463351367aedc554c6fb6d6d0a8c9
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 15:41:30 2023 +0200
+
+    kolme tiedostoa lisätty hakemistoon tiedostoja
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit da8f5e46080baf864f0fc3ffb8f84b644ce09054
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 15:23:52 2023 +0200
+
+    lisäyksiä ja poistoja ekaan ja kolmanteen
+
+ eka.txt    | 3 ++-
+ kolmas.txt | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+commit 10421db49209086b2387b4bec04eeaf4a1208c02
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 03:13:26 2023 +0200
+
+    tiedostolle uusi nimi
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 8bc1f7aff5c83586ef2708bc4702cecdd88757ad
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 03:10:39 2023 +0200
+
+    poistettiin toinen
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 2eecf8fb1bef8e11278b478b002056a97336e0b7
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 03:05:01 2023 +0200
+
+    tekstiä poistettu ja lisätty
+
+ tiedosto.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit f001347b3411c7782c40fc5ebb9820c1c5399db4
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 03:03:09 2023 +0200
+
+    tekstin lisäys tiedosto.txt
+
+ tiedosto.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit dfb04f05b502c231d775dcd075905cf14eea50ad
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 02:49:24 2023 +0200
+
+    stuff-hakemiston lisäys
+
+ stuff/jokin_tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 86ccbb6346e85b33e8baa27be28718dc6015668f
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 02:46:05 2023 +0200
+
+    kaksi muutosta
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 977a7b86697608d49a8d33cbc03006070b197a18
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 02:44:19 2023 +0200
+
+    tiedoston kolmas lisäys
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 9cde9f57f4590132dfc4992eb08f26e3337274b9
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 02:22:28 2023 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit d2acd5c580c6c3e6ede61c5417cd36add2d5ebcb
+Author: Lahja Lintumäki <lahja.lintumaki@gmail.com>
+Date:   Tue Mar 21 02:16:51 2023 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
