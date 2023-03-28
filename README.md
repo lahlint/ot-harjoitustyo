@@ -9,3 +9,7 @@
 ### Viikko2
 
 [testikattavuus_screenshot.png](https://github.com/lahlint/ot-harjoitustyo/blob/main/laskarit/viikko2/testikattavuus_screenshot.png)
+
+## Dokumentaatio
+
+* [Vaatimusmäärittely](https://github.com/lahlint/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
