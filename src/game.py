@@ -4,10 +4,11 @@ import pygame
 from sprites.player import Player
 from sprites.platform import Platform
 
+
 class Game:
     def __init__(self, start=True):
         pygame.init()
-        self.display = pygame.display.set_mode((400,600))
+        self.display = pygame.display.set_mode((400, 600))
         pygame.display.set_caption("Platform jumping game")
         self.player = Player()
         self.platforms = pygame.sprite.Group()
@@ -19,15 +20,16 @@ class Game:
         self.start = start
         self.highest = 0
         self.score = 0
+        self.test = False
 
-        #starts gameloop
+        # starts gameloop
         self.gameloop()
 
-    #starts a new game
+    # starts a new game
     def new_game(self, start):
         Game(start)
 
-    #starts gameloop
+    # starts gameloop
     def gameloop(self):
         while True:
             self.check_events()
@@ -40,7 +42,7 @@ class Game:
 
     def check_events(self):
         for event in pygame.event.get():
-            #check sideways arrow keys
+            # check sideways arrow keys
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.player.move_l = True
@@ -52,7 +54,7 @@ class Game:
                 if event.key == pygame.K_RIGHT:
                     self.player.move_r = False
 
-            #check ENTER and F2
+            # check ENTER and F2
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     self.start = False
@@ -61,19 +63,19 @@ class Game:
                     self.start = True
                     self.new_game(True)
 
-            #quit game
+            # quit game
             if event.type == pygame.QUIT:
                 sys.exit()
 
     def check_collisions(self):
-        #check collisions between player and platforms
+        # check collisions between player and platforms
         for platform in self.platforms:
             if platform.rect.colliderect(self.player.rect):
                 if self.player.speed < 0:
                     self.player.speed = 25
 
     def scrolling_and_score(self):
-        #scrolling and score
+        # scrolling and score
         scroll_border = 200
         if self.player.rect.y <= scroll_border:
             if self.player.speed > 0:
@@ -106,7 +108,8 @@ class Game:
         font1 = pygame.font.SysFont("Arial", 28)
         font2 = pygame.font.SysFont("Arial", 45)
         pygame.draw.rect(self.display, (0, 0, 0), (50, (600-210)/2, 300, 210))
-        pygame.draw.rect(self.display, (255, 255, 255), (55, (600-200)/2, 290, 200))
+        pygame.draw.rect(self.display, (255, 255, 255),
+                         (55, (600-200)/2, 290, 200))
         message = font1.render(f"SCORE: {self.score:.2f}", True, (0, 0, 0))
         self.display.blit(message, ((65, 290)))
         message = font2.render("GAME OVER", True, (0, 0, 0))
@@ -117,47 +120,52 @@ class Game:
     def draw_startmenu(self):
         font1 = pygame.font.SysFont("Arial", 28)
         font2 = pygame.font.SysFont("Arial", 45)
-        colors = [(187,255,255),(174,238,238),(150,205,205),(99,184,255),(79,148,205),(0,154,205)]
+        colors = [(187, 255, 255), (174, 238, 238), (150, 205, 205),
+                  (99, 184, 255), (79, 148, 205), (0, 154, 205)]
         self.display.fill(colors[0])
-        messages = ["Platform","jumping","game!"]
-        heights = [110,160,210]
+        messages = ["Platform", "jumping", "game!"]
+        heights = [110, 160, 210]
         self.blit_messages(messages, heights, font2)
-        messages = ["Jump as high on the","platforms as you can!"]
-        heights = [280,320]
+        messages = ["Jump as high on the", "platforms as you can!"]
+        heights = [280, 320]
         self.blit_messages(messages, heights, font1)
-        messages = ["Use the ARROW KEYS","to move sideways.","ENTER = start game"]
-        heights = [360,400,440]
+        messages = ["Use the ARROW KEYS",
+                    "to move sideways.", "ENTER = start game"]
+        heights = [360, 400, 440]
         self.blit_messages(messages, heights, font1)
 
     def draw_game(self):
-        colors = [(187,255,255),(174,238,238),(150,205,205),(99,184,255),(79,148,205),(0,154,205)]
-        score_tresholds = [0,100,150,200,250,300]
+        colors = [(187, 255, 255), (174, 238, 238), (150, 205, 205),
+                  (99, 184, 255), (79, 148, 205), (0, 154, 205)]
+        score_tresholds = [0, 100, 150, 200, 250, 300]
         for i in range(len(colors)):
             if self.score > score_tresholds[i]:
                 color = colors[i]
         self.display.fill(color)
         font1 = pygame.font.SysFont("Arial", 28)
-        #generates platforms
+        # generates platforms
         while len(self.platforms) < 10:
             width = 64
             p_x = random.randint(0, 400 - width)
             p_y = self.platform.rect.y - random.randint(90, 120)
             self.platform = Platform(p_x, p_y, width)
             self.platforms.add(self.platform)
-        #draw platfroms and player
+        # draw platfroms and player
         self.platforms.update(self.scroll)
         self.platforms.draw(self.display)
-        self.display.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
-        #shows score
+        self.display.blit(self.player.image,
+                          (self.player.rect.x, self.player.rect.y))
+        # shows score
         message = font1.render(f"Score: {self.score:.2f}", True, (0, 0, 0))
         self.display.blit(message, (10, 10))
-        #shows how to get back to menu
+        # shows how to get back to menu
         message = font1.render("F2 = Menu", True, (0, 0, 0))
-        self.display.blit(message, (400-message.get_width() -10, 10))
+        self.display.blit(message, (400-message.get_width() - 10, 10))
 
     def blit_messages(self, messages, heights, font):
         for i in range(len(messages)):
             message = font.render(messages[i], True, (0, 0, 0))
             self.display.blit(message, (200-message.get_width()/2, heights[i]))
 
-Game()
+if __name__ == "__main__":
+    Game()

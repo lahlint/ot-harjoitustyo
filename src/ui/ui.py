@@ -1,5 +1,6 @@
 from tkinter import Tk, ttk, constants
 
+
 class UI:
     def __init__(self, root):
         self._root = root
@@ -19,12 +20,12 @@ class UI:
         password_entry.grid(row=2, column=1)
         button.grid(row=3, column=0, columnspan=2)
 
+
 window = Tk()
 window.title("Tasohyppelypeli")
 
 ui = UI(window)
 ui.start()
-
 
 
 window.mainloop()
