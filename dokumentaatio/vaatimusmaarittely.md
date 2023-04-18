@@ -14,8 +14,9 @@ Käyttäjä voi
 
 Käyttäjä voi
 
-* lukea lyhyet ohjeet pelaamiseen
-* aloittaa uuden pelin
+* lukea lyhyet ohjeet pelaamiseen aloitusnäkymässä (tehty)
+* aloittaa uuden pelin (tehty)
+* palata takaisin aloitusnäkymään (tehty)
 * nähdä oman parhaan tuloksen aloitusnäkymässä
 * kirjautua ulos
 
@@ -25,7 +26,7 @@ Käyttäjä voi
 	* liikkuvia tasoja, joille pelihahmo  voi hypätä
 	* tasoja, joille ei saa hypätä tai muita väisteltäviä elementtejä
 	* tasoja, joille hyppääminen mahdollistaa hyppäämisen korkeammalle
-	* asteittain muuttuva pelin tausta
+	* asteittain muuttuva pelin tausta (alustava versio tehty)
 * jotain keräiltävää, esim. kolikoita
-* gameover-näkymä, jossa näkyy myös tulokset
+* gameover-näkymä, jossa näkyy myös tulokset (tehty)
 
