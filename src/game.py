@@ -1,7 +1,8 @@
+import random
+import sys
 import pygame
 from sprites.player import Player
 from sprites.platform import Platform
-import random
 
 class Game:
     def __init__(self, start=True):
@@ -13,26 +14,13 @@ class Game:
         self.platform = Platform(163, 560, 40)
         self.platforms.add(self.platform)
         self.clock = pygame.time.Clock()
-        self.scroll_border = 200
         self.scroll = 0
         self.gameover = self.player.gameover
         self.start = start
         self.highest = 0
         self.score = 0
 
-        #fonts
-        self.font1 = pygame.font.SysFont("Arial", 28)
-        self.font2 = pygame.font.SysFont("Arial", 45)
-
-        #background colors
-        self.blue1 = (187,255,255)
-        self.blue2 = (174,238,238)
-        self.blue3 = (150,205,205)
-        self.blue4 = (99,184,255)
-        self.blue5 = (79,148,205)
-        self.blue6 = (0,154,205)
-        self.blue8 = (0,154,205)
-        
+        #starts gameloop
         self.gameloop()
 
     #starts a new game
@@ -43,6 +31,9 @@ class Game:
     def gameloop(self):
         while True:
             self.check_events()
+            self.check_collisions()
+            self.scrolling_and_score()
+            self.check_gameover()
             self.player.move()
             self.draw_screen()
             self.clock.tick(60)
@@ -55,7 +46,6 @@ class Game:
                     self.player.move_l = True
                 if event.key == pygame.K_RIGHT:
                     self.player.move_r = True
-            
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT:
                     self.player.move_l = False
@@ -71,21 +61,23 @@ class Game:
                     self.start = True
                     self.new_game(True)
 
-
+            #quit game
             if event.type == pygame.QUIT:
-                exit()
+                sys.exit()
 
-        #check collisions between player and plratforms
-        for p in self.platforms:
-            if p.rect.colliderect(self.player.rect):
+    def check_collisions(self):
+        #check collisions between player and platforms
+        for platform in self.platforms:
+            if platform.rect.colliderect(self.player.rect):
                 if self.player.speed < 0:
                     self.player.speed = 25
 
+    def scrolling_and_score(self):
         #scrolling and score
-        if self.player.rect.y <= self.scroll_border:
+        scroll_border = 200
+        if self.player.rect.y <= scroll_border:
             if self.player.speed > 0:
                 self.scroll = self.player.speed
-                #print(self.scroll)
                 self.player.rect.y = self.player.rect.y + self.scroll
                 if self.player.past_border:
                     self.score += self.scroll/60
@@ -93,86 +85,79 @@ class Game:
             self.scroll = 0
             if not self.player.past_border:
                 if (600-self.player.rect.y)/60 > self.highest:
-                    #print("kgjvjkkjbv")
                     self.highest = (600-self.player.rect.y)/60
                     self.score = self.highest
 
+    def check_gameover(self):
         if self.player.gameover:
             self.gameover = True
 
-
     def draw_screen(self):
-
-        #draw gameover window
         if self.gameover:
-            pygame.draw.rect(self.display, (0, 0, 0), (50, (600-210)/2, 300, 210))
-            pygame.draw.rect(self.display, (255, 255, 255), (55, (600-200)/2, 290, 200))
-            self.message = self.font1.render(f"SCORE: {self.score:.2f}", True, (0, 0, 0))
-            self.display.blit(self.message, ((65, 290)))
-            self.message = self.font2.render(f"GAME OVER", True, (0, 0, 0))
-            self.display.blit(self.message, (200-self.message.get_width()/2, 220))
-            self.message = self.font1.render(f"ENTER = New game", True, (0, 0, 0))
-            self.display.blit(self.message, (65, 350))
-
-        #draw startmenu
+            self.draw_gameover_screen()
         elif self.start:
-            self.display.fill(self.blue1)
-            self.message = self.font2.render(f"Platform", True, (0, 0, 0))
-            self.display.blit(self.message, (200-self.message.get_width()/2, 110))
-            self.message = self.font2.render(f"jumping", True, (0, 0, 0))
-            self.display.blit(self.message, (200-self.message.get_width()/2, 160))
-            self.message = self.font2.render(f"game!", True, (0, 0, 0))
-            self.display.blit(self.message, (200-self.message.get_width()/2, 210))
-            self.message = self.font1.render(f"Jump as high on the", True, (0, 0, 0))
-            self.display.blit(self.message, (200-self.message.get_width()/2, 280))
-            self.message = self.font1.render(f"platforms as you can!", True, (0, 0, 0))
-            self.display.blit(self.message, (200-self.message.get_width()/2, 320))
-            self.message = self.font1.render(f"Use the ARROW KEYS", True, (0, 0, 0))
-            self.display.blit(self.message, (200-self.message.get_width()/2, 360))
-            self.message = self.font1.render(f"to move sideways.", True, (0, 0, 0))
-            self.display.blit(self.message, (200-self.message.get_width()/2, 400))
-            self.message = self.font1.render(f"ENTER = start game", True, (0, 0, 0))
-            self.display.blit(self.message, (200-self.message.get_width()/2, 440))
-
-        #draw game
+            self.draw_startmenu()
         else:
-
-            #sets background color
-            if self.score <100:
-                color = self.blue1
-            elif self.score <150:
-                color = self.blue2
-            elif self.score <200:
-                color = self.blue3
-            elif self.score <250:
-                color = self.blue4
-            elif self.score <300:
-                color = self.blue5
-            else:
-                color = self.blue6
-            self.display.fill(color)
-
-            #generates platforms
-            while len(self.platforms) < 10:
-                width = 64
-                x = random.randint(0, 400 - width)
-                y = self.platform.rect.y - random.randint(90, 120)
-                self.platform = Platform(x, y, width)
-                self.platforms.add(self.platform)
-            
-            #draw platfroms and player
-            self.platforms.update(self.scroll)
-            self.platforms.draw(self.display)
-            self.display.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
-
-            #shows score
-            self.message = self.font1.render(f"Score: {self.score:.2f}", True, (0, 0, 0))
-            self.display.blit(self.message, (10, 10))
-
-            #shows how to get back to menu
-            self.message = self.font1.render(f"F2 = Menu", True, (0, 0, 0))
-            self.display.blit(self.message, (400-self.message.get_width() -10, 10))
+            self.draw_game()
 
         pygame.display.flip()
+
+    def draw_gameover_screen(self):
+        font1 = pygame.font.SysFont("Arial", 28)
+        font2 = pygame.font.SysFont("Arial", 45)
+        pygame.draw.rect(self.display, (0, 0, 0), (50, (600-210)/2, 300, 210))
+        pygame.draw.rect(self.display, (255, 255, 255), (55, (600-200)/2, 290, 200))
+        message = font1.render(f"SCORE: {self.score:.2f}", True, (0, 0, 0))
+        self.display.blit(message, ((65, 290)))
+        message = font2.render("GAME OVER", True, (0, 0, 0))
+        self.display.blit(message, (200-message.get_width()/2, 220))
+        message = font1.render("ENTER = New game", True, (0, 0, 0))
+        self.display.blit(message, (65, 350))
+
+    def draw_startmenu(self):
+        font1 = pygame.font.SysFont("Arial", 28)
+        font2 = pygame.font.SysFont("Arial", 45)
+        colors = [(187,255,255),(174,238,238),(150,205,205),(99,184,255),(79,148,205),(0,154,205)]
+        self.display.fill(colors[0])
+        messages = ["Platform","jumping","game!"]
+        heights = [110,160,210]
+        self.blit_messages(messages, heights, font2)
+        messages = ["Jump as high on the","platforms as you can!"]
+        heights = [280,320]
+        self.blit_messages(messages, heights, font1)
+        messages = ["Use the ARROW KEYS","to move sideways.","ENTER = start game"]
+        heights = [360,400,440]
+        self.blit_messages(messages, heights, font1)
+
+    def draw_game(self):
+        colors = [(187,255,255),(174,238,238),(150,205,205),(99,184,255),(79,148,205),(0,154,205)]
+        score_tresholds = [0,100,150,200,250,300]
+        for i in range(len(colors)):
+            if self.score > score_tresholds[i]:
+                color = colors[i]
+        self.display.fill(color)
+        font1 = pygame.font.SysFont("Arial", 28)
+        #generates platforms
+        while len(self.platforms) < 10:
+            width = 64
+            p_x = random.randint(0, 400 - width)
+            p_y = self.platform.rect.y - random.randint(90, 120)
+            self.platform = Platform(p_x, p_y, width)
+            self.platforms.add(self.platform)
+        #draw platfroms and player
+        self.platforms.update(self.scroll)
+        self.platforms.draw(self.display)
+        self.display.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
+        #shows score
+        message = font1.render(f"Score: {self.score:.2f}", True, (0, 0, 0))
+        self.display.blit(message, (10, 10))
+        #shows how to get back to menu
+        message = font1.render("F2 = Menu", True, (0, 0, 0))
+        self.display.blit(message, (400-message.get_width() -10, 10))
+
+    def blit_messages(self, messages, heights, font):
+        for i in range(len(messages)):
+            message = font.render(messages[i], True, (0, 0, 0))
+            self.display.blit(message, (200-message.get_width()/2, heights[i]))
 
 Game()
