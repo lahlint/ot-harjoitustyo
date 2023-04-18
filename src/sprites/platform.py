@@ -13,3 +13,12 @@ class Platform(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.width = width
+
+    def update(self, scroll):
+
+        #moves platform down
+        self.rect.y += scroll
+
+        #deletes platform when it leaves screen
+        if self.rect.y > 600:
+            self.kill()
