@@ -1,7 +1,6 @@
 import unittest
-from game import Game
-from sprites.player import Player
 from sprites.platform import Platform
+
 
 class TestPlatform(unittest.TestCase):
     def setUp(self):
