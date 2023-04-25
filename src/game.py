@@ -3,6 +3,7 @@ import sys
 import pygame
 from sprites.player import Player
 from sprites.platform import Platform
+from sprites.boost_platform import BoostPlatform
 
 
 class Game:
@@ -21,6 +22,7 @@ class Game:
         self.highest = 0
         self.score = 0
         self.test = False
+        self.boost_timer = 0
 
         # starts gameloop
         self.gameloop()
@@ -70,8 +72,11 @@ class Game:
     def check_collisions(self):
         # check collisions between player and platforms
         for platform in self.platforms:
-            if platform.rect.colliderect(self.player.rect):
+            if platform.boost and platform.rect.colliderect(self.player.rect):
                 if self.player.speed < 0:
+                    self.player.speed = 45
+            else:
+                if platform.rect.colliderect(self.player.rect) and self.player.speed < 0:
                     self.player.speed = 25
 
     def scrolling_and_score(self):
@@ -143,13 +148,9 @@ class Game:
                 color = colors[i]
         self.display.fill(color)
         font1 = pygame.font.SysFont("Arial", 28)
-        # generates platforms
-        while len(self.platforms) < 10:
-            width = 64
-            p_x = random.randint(0, 400 - width)
-            p_y = self.platform.rect.y - random.randint(90, 120)
-            self.platform = Platform(p_x, p_y, width)
-            self.platforms.add(self.platform)
+
+        #genereate platforms
+        self.generate_platforms()
         # draw platfroms and player
         self.platforms.update(self.scroll)
         self.platforms.draw(self.display)
@@ -161,6 +162,22 @@ class Game:
         # shows how to get back to menu
         message = font1.render("F2 = Menu", True, (0, 0, 0))
         self.display.blit(message, (400-message.get_width() - 10, 10))
+
+    def generate_platforms(self):
+        while len(self.platforms) < 10:
+            width = 64
+            p_x = random.randint(0, 400 - width)
+            p_y = self.platform.rect.y - random.randint(90, 120)
+            self.platform = Platform(p_x, p_y, width)
+            self.platforms.add(self.platform)
+            self.boost_timer += 1
+        if self.boost_timer == random.randint(15, 20):
+            self.boost_timer = 0
+            width = 64
+            p_x = random.randint(0, 400 - width)
+            p_y = self.platform.rect.y - random.randint(90, 120)
+            self.platform = BoostPlatform(p_x, p_y, width)
+            self.platforms.add(self.platform)
 
     def blit_messages(self, messages, heights, font):
         for i in range(len(messages)):

@@ -5,17 +5,17 @@ path = "ot-harjoitustyo/src/sprites/"
 dirname = os.path.dirname(__file__)
 
 
-class Platform(pygame.sprite.Sprite):
+class BoostPlatform(pygame.sprite.Sprite):
     def __init__(self, p_x, p_y, width):
         super().__init__()
 
         self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "platform.png"))
+            dirname, "..", "assets", "boost_platform.png"))
         self.rect = self.image.get_rect()
         self.rect.x = p_x
         self.rect.y = p_y
         self.width = width
-        self.boost = False
+        self.boost = True
 
     def update(self, scroll):
         # moves platform down
