@@ -8,3 +8,10 @@
     - ylälaidassä näkyy pisteet ja ohjeet aloitusnäkymään palaamiseen
     - kun putoaa tulee gameover-näkymä jossa näkyy pisteet ja voi aloittaa uuden pelin
     - alustava muuttuva tausta
+
+## Viikko 5
+
+- Lisätty BoostPlatform-luokka ja sen toiminnallisuudet
+    - tämän luokan tasoja tulee tavallisten tasojen lisäksi, mutta harvemmin ja niiltä pääsee hyppäämään tavallista korkeammalle
+- BoostPlatform-luokan testiluokka ja testit lisätty
+
