@@ -1,5 +1,6 @@
 import unittest
 from sprites.boost_platform import BoostPlatform
+from game import Game
 
 
 class TestBoostPlatform(unittest.TestCase):

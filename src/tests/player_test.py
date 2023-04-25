@@ -1,5 +1,6 @@
 import unittest
 from sprites.player import Player
+from game import Game
 
 
 class TestPlayer(unittest.TestCase):
