@@ -9,6 +9,8 @@
 
 ## Ohjelman käynnistäminen ja komennot
 
+Voit ladata viimeisimmän releasen lähdekoodin [täältä](https://github.com/lahlint/ot-harjoitustyo/releases/tag/viikko5) valitsemalla Assets-osion alta Source code.
+
 ### Käynnistäminen
 
 1. Asenna riippuvuudet komennolla:
