@@ -4,6 +4,7 @@ import pygame
 from sprites.player import Player
 from sprites.platform import Platform
 from sprites.boost_platform import BoostPlatform
+from sprites.coin import Coin
 
 
 class Game:
@@ -15,12 +16,15 @@ class Game:
         self.platforms = pygame.sprite.Group()
         self.platform = Platform(163, 560, 40)
         self.platforms.add(self.platform)
+        self.coin = Coin(random.randint(0,400-32),random.randint(0,400))
+        self.coins = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
         self.scroll = 0
         self.gameover = self.player.gameover
         self.start = start
         self.highest = 0
         self.score = 0
+        self.coins_collected = 0
         self.test = False
         self.boost_timer = 0
 
@@ -35,7 +39,7 @@ class Game:
     def gameloop(self):
         while True:
             self.check_events()
-            self.check_collisions()
+            check_collisions(self, self.platforms, self.coins, self.player)
             self.scrolling_and_score()
             self.check_gameover()
             self.player.move()
@@ -69,15 +73,6 @@ class Game:
             if event.type == pygame.QUIT:
                 sys.exit()
 
-    def check_collisions(self):
-        # check collisions between player and platforms
-        for platform in self.platforms:
-            if platform.boost and platform.rect.colliderect(self.player.rect):
-                if self.player.speed < 0:
-                    self.player.speed = 45
-            else:
-                if platform.rect.colliderect(self.player.rect) and self.player.speed < 0:
-                    self.player.speed = 25
 
     def scrolling_and_score(self):
         # scrolling and score
@@ -115,12 +110,14 @@ class Game:
         pygame.draw.rect(self.display, (0, 0, 0), (50, (600-210)/2, 300, 210))
         pygame.draw.rect(self.display, (255, 255, 255),
                          (55, (600-200)/2, 290, 200))
-        message = font1.render(f"SCORE: {self.score:.2f}", True, (0, 0, 0))
-        self.display.blit(message, ((65, 290)))
         message = font2.render("GAME OVER", True, (0, 0, 0))
         self.display.blit(message, (200-message.get_width()/2, 220))
+        message = font1.render(f"SCORE: {self.score:.2f}", True, (0, 0, 0))
+        self.display.blit(message, ((65, 280)))
+        message = font1.render(f"COINS: {self.coins_collected}", True, (0, 0, 0))
+        self.display.blit(message, ((65, 320)))
         message = font1.render("ENTER = New game", True, (0, 0, 0))
-        self.display.blit(message, (65, 350))
+        self.display.blit(message, (65, 360))
 
     def draw_startmenu(self):
         font1 = pygame.font.SysFont("Arial", 28)
@@ -151,17 +148,25 @@ class Game:
 
         #genereate platforms
         self.generate_platforms()
-        # draw platfroms and player
+        # draw platfroms
         self.platforms.update(self.scroll)
         self.platforms.draw(self.display)
+        #generate and draw coins
+        self.genereate_coins()
+        self.coins.update(self.scroll)
+        self.coins.draw(self.display)
+        #draw player
         self.display.blit(self.player.image,
                           (self.player.rect.x, self.player.rect.y))
         # shows score
         message = font1.render(f"Score: {self.score:.2f}", True, (0, 0, 0))
-        self.display.blit(message, (10, 10))
+        self.display.blit(message, (10, 5))
+        # shows collected coins
+        message = font1.render(f"Coins: {self.coins_collected}", True, (0, 0, 0))
+        self.display.blit(message, (10, 30))
         # shows how to get back to menu
         message = font1.render("F2 = Menu", True, (0, 0, 0))
-        self.display.blit(message, (400-message.get_width() - 10, 10))
+        self.display.blit(message, (400-message.get_width() - 10, 5))
 
     def generate_platforms(self):
         while len(self.platforms) < 10:
@@ -178,11 +183,35 @@ class Game:
             p_y = self.platform.rect.y - random.randint(90, 120)
             self.platform = BoostPlatform(p_x, p_y, width)
             self.platforms.add(self.platform)
+        
+    def genereate_coins(self):
+        while len(self.coins) < 10:
+            c_x = random.randint(0, 400 - 32)
+            c_y = self.coin.rect.y - random.randint(300, 700)
+            self.coin = Coin(c_x, c_y)
+            self.coins.add(self.coin)
 
     def blit_messages(self, messages, heights, font):
         for i in range(len(messages)):
             message = font.render(messages[i], True, (0, 0, 0))
             self.display.blit(message, (200-message.get_width()/2, heights[i]))
+
+
+def check_collisions(game, platforms, coins, player):
+    # check collisions between player and platforms
+    for platform in platforms:
+        if platform.boost and platform.rect.colliderect(player.rect):
+            if player.speed < 0:
+                player.speed = 45
+        else:
+            if platform.rect.colliderect(player.rect) and player.speed < 0:
+                player.speed = 25
+
+    for coin in coins:
+        if coin.rect.colliderect(player.rect):
+            coin.kill()
+            game.coins_collected += 1
+
 
 if __name__ == "__main__":
     Game()
