@@ -15,3 +15,9 @@
     - tämän luokan tasoja tulee tavallisten tasojen lisäksi, mutta harvemmin ja niiltä pääsee hyppäämään tavallista korkeammalle
 - BoostPlatform-luokan testiluokka ja testit lisätty
 
+## Viikko 6
+
+- Lisätty Coin-luokka ja sen toiminnallisuudet
+    - pelissä voi kerätä kolikoita
+    - kerättyjen kolikoiden määrän voi nähdä pelin aikana ylälaidassa sekä gameover-näkymässä
+- Coin-luokan testiluokka ja testit lisätty
