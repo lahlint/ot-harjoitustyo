@@ -1,5 +1,7 @@
 # Tasohyppelypeli
 
+Tässä tasohyppelypelissä perusideana on yrittää päästä mahdollisimman korkealle putoamatta, hyppelemällä tasolta toiselle sekä kerätä kolikoita matkalla.
+
 ## Dokumentaatio
 
 * [Vaatimusmäärittely](https://github.com/lahlint/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
