@@ -6,7 +6,24 @@ dirname = os.path.dirname(__file__)
 
 
 class BoostPlatform(pygame.sprite.Sprite):
+    """Class for platforms that give an extra boost for player.
+
+    Attributes:
+        image: platform image
+        rect: rectangle, the size of the image, for collisions
+        rect.x: x-coordinate of platforms rect
+        rect.y: y-coordinate of platforms rect
+        width: width of platform
+        boost: helps differentiate between different kinds of platforms in other parts of code
+    """
     def __init__(self, p_x, p_y, width):
+        """Class constructor that creates a new platform
+
+        Args:
+            p_x: platforms x-coordinate
+            p_y: platforms y-coordinate
+            width: platfroms width
+        """
         super().__init__()
 
         self.image = pygame.image.load(os.path.join(
@@ -18,8 +35,12 @@ class BoostPlatform(pygame.sprite.Sprite):
         self.boost = True
 
     def update(self, scroll):
-        # moves platform down
+        """Updates platforms positions accordingly or deletes platform when needed.
+
+        Args:
+            scroll: determines how much platform needs to go down depending on how player advances.
+        """
+
         self.rect.y += scroll
-        # deletes platform when it leaves screen
         if self.rect.y > 600:
             self.kill()

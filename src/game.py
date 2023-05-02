@@ -8,7 +8,30 @@ from sprites.coin import Coin
 
 
 class Game:
+    """Class for handling game variables, gameloop, events and drawing screen.
+
+    Attributes:
+        display: sets display
+        player: creates the player
+        platforms: sprite group for platforms
+        platform: creates first platform and is used for spacing platforms away from each other
+        coin: is used for spacing coins away from each other
+        coins: sprite group for coins
+        clock: clock
+        scroll: determines how much everything needs to move down based on how player advances
+        gameover: if true, gameover-view is shown
+        start: if true, start menu is shown
+        highest: helps with determining score
+        score: shows how far up player got to
+        coins_collected: coins collected
+        boost_timer: helps with spacing out boost platforms
+    """
     def __init__(self, start=True):
+        """Class constructor that sets game variables and starts game
+
+        Args:
+            start: determines whether start menu is shown 
+        """
         pygame.init()
         self.display = pygame.display.set_mode((400, 600))
         pygame.display.set_caption("Platform jumping game")
@@ -25,30 +48,35 @@ class Game:
         self.highest = 0
         self.score = 0
         self.coins_collected = 0
-        self.test = False
         self.boost_timer = 0
 
-        # starts gameloop
         self.gameloop()
 
-    # starts a new game
     def new_game(self, start):
+        """Starts new game.
+
+        Args:
+            start: determines whether start menu is shown 
+        """
+
         Game(start)
 
-    # starts gameloop
     def gameloop(self):
+        """Gameloop.
+        """
         while True:
             self.check_events()
             check_collisions(self, self.platforms, self.coins, self.player)
             self.scrolling_and_score()
             self.check_gameover()
-            self.player.move()
+            self.player.update()
             self.draw_screen()
             self.clock.tick(60)
 
     def check_events(self):
+        """Checks events/user interaction.
+        """
         for event in pygame.event.get():
-            # check sideways arrow keys
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.player.move_l = True
@@ -60,7 +88,6 @@ class Game:
                 if event.key == pygame.K_RIGHT:
                     self.player.move_r = False
 
-            # check ENTER and F2
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     self.start = False
@@ -69,13 +96,12 @@ class Game:
                     self.start = True
                     self.new_game(True)
 
-            # quit game
             if event.type == pygame.QUIT:
                 sys.exit()
 
-
     def scrolling_and_score(self):
-        # scrolling and score
+        """Handles scrolling and determines score
+        """
         scroll_border = 200
         if self.player.rect.y <= scroll_border:
             if self.player.speed > 0:
@@ -183,7 +209,7 @@ class Game:
             p_y = self.platform.rect.y - random.randint(90, 120)
             self.platform = BoostPlatform(p_x, p_y, width)
             self.platforms.add(self.platform)
-        
+
     def genereate_coins(self):
         while len(self.coins) < 10:
             c_x = random.randint(0, 400 - 32)
@@ -195,7 +221,6 @@ class Game:
         for i in range(len(messages)):
             message = font.render(messages[i], True, (0, 0, 0))
             self.display.blit(message, (200-message.get_width()/2, heights[i]))
-
 
 def check_collisions(game, platforms, coins, player):
     # check collisions between player and platforms
