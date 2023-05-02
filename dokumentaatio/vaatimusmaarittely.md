@@ -27,6 +27,6 @@ Käyttäjä voi
 	* tasoja, joille ei saa hypätä tai muita väisteltäviä elementtejä
 	* tasoja, joille hyppääminen mahdollistaa hyppäämisen korkeammalle (tehty)
 	* asteittain muuttuva pelin tausta (alustava versio tehty)
-* jotain keräiltävää, esim. kolikoita
+* jotain keräiltävää, esim. kolikoita (tehty)
 * gameover-näkymä, jossa näkyy myös tulokset (tehty)
 
