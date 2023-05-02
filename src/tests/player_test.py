@@ -26,8 +26,8 @@ class TestPlayer(unittest.TestCase):
         self.assertNotEqual(self.player.rect.x, 200)
 
     def test_player_past_border_is_true_after_passing_border(self):
-        self.player.rect.y = 300
+        self.player.rect.y = 100
         self.player.move()
-        self.assertNotEqual(self.player.rect.y, 300)
+        self.assertEqual(self.player.past_border, True)
 
 
