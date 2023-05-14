@@ -1,32 +1,27 @@
-# Tasohyppelypeli
+# Platform jumping game
 ## Sovelluksen tarkoitus
-Tasohyppelypelissä perusideana on yrittää päästä mahdollisimman korkealle putoamatta, hyppelemällä tasolta toiselle.
+Tässä tasohyppelypelissä perusideana on yrittää päästä mahdollisimman korkealle putoamatta, hyppelemällä tasolta toiselle sekä kerätä kolikoita matkalla.
 
-## Suunnitellut toiminnallisuudet
-### Ennen kirjautumista
+## Toiminnallisuudet
+
+Pelissä on
+* tasoja, joille pelihahmo voi hypätä
+* tasoja, joille hyppääminen mahdollistaa hyppäämisen korkeammalle
+* kerättäviä kolikoita
+* pisteet ja kerättyjen kolikoiden määrä näkyvissä reaaliaikaisesti
+* tausta, jonka väri muuttuu asteittain mitä pidemmälle pääsee
 
 Käyttäjä voi
-
-* luoda tunnukset
-* kirjautua tunnuksillaan
-
-### Kirjautumisen jälkeen
-
-Käyttäjä voi
-
-* lukea lyhyet ohjeet pelaamiseen aloitusnäkymässä (tehty)
-* aloittaa uuden pelin (tehty)
-* palata takaisin aloitusnäkymään (tehty)
-* nähdä oman parhaan tuloksen aloitusnäkymässä
-* kirjautua ulos
+* lukea lyhyet ohjeet pelaamiseen aloitusnäkymässä
+* aloittaa uuden pelin
+* palata takaisin aloitusnäkymään
+* nähdä parhaat tuloksensa aloitus- ja gameover-näkymissä
 
 ## Jatkokehitysideat
 
 * peliin voisi lisätä erilaisia elementtejä, joita ilmenee mitä pidemmälle pelissä pääsee
 	* liikkuvia tasoja, joille pelihahmo  voi hypätä
 	* tasoja, joille ei saa hypätä tai muita väisteltäviä elementtejä
-	* tasoja, joille hyppääminen mahdollistaa hyppäämisen korkeammalle (tehty)
-	* asteittain muuttuva pelin tausta (alustava versio tehty)
-* jotain keräiltävää, esim. kolikoita (tehty)
-* gameover-näkymä, jossa näkyy myös tulokset (tehty)
+	* parempi toteutus asteittain muuttuvasta pelin taustasta
+
 
