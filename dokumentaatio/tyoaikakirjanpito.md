@@ -9,4 +9,8 @@
 |18.4.|5|pylint käyttöön, koodin siistimistä ja game-luokan funktioiden refaktorointia, testiluokat ja testejä player- ja platform-luokille|
 |25.4|3|BoostPlatfrom-luokka ja sen toiminnallisuudet sekä sen testien lisääminen, pylint-siistimistä, käyttöohjeita|
 |2.5.|7|Coin-luokka ja sen toiminnalisuudet sekä sen testien lisääminen, docstring-dokumentaatiota, pylint, kolikoiden määrä näkyviin pelin aikana ja gameover-näkymässä|
-|yhteensä|30||
+|12.5.|2|refaktorointia|
+|13.5.|2|pylint virheiden korjaamista ja highscoren lisääminen|
+|14.5.|1|docstring-dokumentaatiota|
+|14.5|3|most coins lisääminen, startmenu- ja gameover- näkymien uudistus yhteensopivaksi highscoren ja most coins kanssa|
+|yhteensä|38||
