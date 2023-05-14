@@ -89,16 +89,12 @@ def draw_gameover_screen(game):
     font1 = pygame.font.SysFont("Arial", 28)
     font2 = pygame.font.SysFont("Arial", 45)
     pygame.draw.rect(game.display, (0, 0, 0), (50, (600-210)/2 -50, 300, 210))
-    pygame.draw.rect(game.display, (255, 255, 255),
-                        (55, (600-200)/2 -50, 290, 200))
+    pygame.draw.rect(game.display, (255, 255, 255), (55, (600-200)/2 -50, 290, 200))
     message = font2.render("GAME OVER", True, (0, 0, 0))
     game.display.blit(message, (200-message.get_width()/2, 170))
-    message = font1.render(f"SCORE: {game.score:.0f}", True, (0, 0, 0))
-    game.display.blit(message, ((65, 230)))
-    message = font1.render(f"COINS: {game.coins_collected}", True, (0, 0, 0))
-    game.display.blit(message, ((65, 270)))
-    message = font1.render("ENTER = New game", True, (0, 0, 0))
-    game.display.blit(message, (65, 310))
+    messages = [f"SCORE: {game.score:.0f}", f"COINS: {game.coins_collected}", "ENTER = New game"]
+    heights = [230, 270, 310]
+    blit_messages_not_centered(game, messages, heights, font1, (0, 0, 0), 65)
 
     pygame.draw.rect(game.display, (0, 0, 0), (50, 365, 300, 80))
     pygame.draw.rect(game.display, (255, 255, 255),
@@ -118,31 +114,23 @@ def draw_startmenu(game):
     """
     font1 = pygame.font.SysFont("Arial", 28)
     font2 = pygame.font.SysFont("Arial", 45)
-    colors = [(187, 255, 255), (174, 238, 238), (150, 205, 205),
-                (123, 185, 200), (79, 148, 205), (0, 154, 205), (10,115,205), (0,75,170)]
-    game.display.fill(colors[0])
+    game.display.fill((187, 255, 255))
     pygame.draw.rect(game.display, (0, 0, 0), (50 -5, (600-210)/2 + 5, 300 +10, 255))
-    pygame.draw.rect(game.display, (255, 255, 255),
-                        (55 -5, (600-200)/2 + 5, 290 +10, 245))
+    pygame.draw.rect(game.display, (255, 255, 255), (55 -5, (600-200)/2 + 5, 290 +10, 245))
     pygame.draw.rect(game.display, (0, 0, 0), (50 -5, 465, 300 +10, 80))
-    pygame.draw.rect(game.display, (255, 255, 255),
-                        (55 -5, 470, 290 +10, 70))
+    pygame.draw.rect(game.display, (255, 255, 255), (55 -5, 470, 290 +10, 70))
     messages = ["Platform", "jumping", "game!"]
     heights = [30, 80, 130]
     blit_messages(game, messages, heights, font2)
     messages = ["Jump as high on the", "platforms as you can", "and collect coins!"]
     heights = [210, 250, 290]
     blit_messages(game, messages, heights, font1)
-    messages = ["Use the ARROW KEYS",
-                "to move sideways.", "ENTER = start game"]
+    messages = ["Use the ARROW KEYS", "to move sideways.", "ENTER = start game"]
     heights = [330, 370, 410]
     blit_messages(game, messages, heights, font1)
-    high_score = highscore(game)
-    message = font1.render("HIGHSCORE: " + str(high_score), True, (255, 0, 0))
-    game.display.blit(message, (65, 475))
-    mostcoins = most_coins(game)
-    message = font1.render("MOST COINS: " + str(mostcoins), True, (255, 0, 0))
-    game.display.blit(message, (65, 505))
+    messages = ["HIGHSCORE: " + str(highscore(game)), "MOST COINS: " + str(most_coins(game))]
+    heights = [475, 505]
+    blit_messages_not_centered(game, messages, heights, font1, (255, 0, 0), 65)
 
 def draw_game(game):
     """Handles drawing everything during the game.
@@ -219,6 +207,21 @@ def blit_messages(game, messages, heights, font):
     for i, string in enumerate(messages):
         message = font.render(string, True, (0, 0, 0))
         game.display.blit(message, (200-message.get_width()/2, heights[i]))
+
+def blit_messages_not_centered(game, messages, heights, font, color, position):
+    """Helps with blitting multiple lines of text that is not centered.
+
+    Args:
+        game: game object
+        messages: list of strings
+        heights: list of heights on which the messages will be placed
+        font: font with font size
+        color: font color
+        position: x-coordinate
+    """
+    for i, string in enumerate(messages):
+        message = font.render(string, True, color)
+        game.display.blit(message, (position, heights[i]))
 
 def check_collisions(game, platforms, coins, player):
     """Checks players collisions with platforms and coins.
