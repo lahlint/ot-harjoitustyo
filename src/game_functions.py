@@ -1,4 +1,5 @@
 import random
+import os
 import sys
 import pygame
 from sprites.platform import Platform
@@ -87,17 +88,27 @@ def draw_gameover_screen(game):
     """
     font1 = pygame.font.SysFont("Arial", 28)
     font2 = pygame.font.SysFont("Arial", 45)
-    pygame.draw.rect(game.display, (0, 0, 0), (50, (600-210)/2, 300, 210))
+    pygame.draw.rect(game.display, (0, 0, 0), (50, (600-210)/2 -50, 300, 210))
     pygame.draw.rect(game.display, (255, 255, 255),
-                        (55, (600-200)/2, 290, 200))
+                        (55, (600-200)/2 -50, 290, 200))
     message = font2.render("GAME OVER", True, (0, 0, 0))
-    game.display.blit(message, (200-message.get_width()/2, 220))
+    game.display.blit(message, (200-message.get_width()/2, 170))
     message = font1.render(f"SCORE: {game.score:.0f}", True, (0, 0, 0))
-    game.display.blit(message, ((65, 280)))
+    game.display.blit(message, ((65, 230)))
     message = font1.render(f"COINS: {game.coins_collected}", True, (0, 0, 0))
-    game.display.blit(message, ((65, 320)))
+    game.display.blit(message, ((65, 270)))
     message = font1.render("ENTER = New game", True, (0, 0, 0))
-    game.display.blit(message, (65, 360))
+    game.display.blit(message, (65, 310))
+
+    pygame.draw.rect(game.display, (0, 0, 0), (50, 365, 300, 80))
+    pygame.draw.rect(game.display, (255, 255, 255),
+                        (55, 370, 290, 70))
+    high_score = highscore(game)
+    message = font1.render("HIGHSCORE: " + str(high_score), True, (255, 0, 0))
+    game.display.blit(message, (65, 375))
+    mostcoins = most_coins(game)
+    message = font1.render("MOST COINS: " + str(mostcoins), True, (255, 0, 0))
+    game.display.blit(message, (65, 405))
 
 def draw_startmenu(game):
     """Handles drawing startmenu-view.
@@ -108,18 +119,30 @@ def draw_startmenu(game):
     font1 = pygame.font.SysFont("Arial", 28)
     font2 = pygame.font.SysFont("Arial", 45)
     colors = [(187, 255, 255), (174, 238, 238), (150, 205, 205),
-                (99, 184, 255), (79, 148, 205), (0, 154, 205)]
+                (123, 185, 200), (79, 148, 205), (0, 154, 205), (10,115,205), (0,75,170)]
     game.display.fill(colors[0])
+    pygame.draw.rect(game.display, (0, 0, 0), (50 -5, (600-210)/2 + 5, 300 +10, 255))
+    pygame.draw.rect(game.display, (255, 255, 255),
+                        (55 -5, (600-200)/2 + 5, 290 +10, 245))
+    pygame.draw.rect(game.display, (0, 0, 0), (50 -5, 465, 300 +10, 80))
+    pygame.draw.rect(game.display, (255, 255, 255),
+                        (55 -5, 470, 290 +10, 70))
     messages = ["Platform", "jumping", "game!"]
-    heights = [110, 160, 210]
+    heights = [30, 80, 130]
     blit_messages(game, messages, heights, font2)
-    messages = ["Jump as high on the", "platforms as you can!"]
-    heights = [280, 320]
+    messages = ["Jump as high on the", "platforms as you can", "and collect coins!"]
+    heights = [210, 250, 290]
     blit_messages(game, messages, heights, font1)
     messages = ["Use the ARROW KEYS",
                 "to move sideways.", "ENTER = start game"]
-    heights = [360, 400, 440]
+    heights = [330, 370, 410]
     blit_messages(game, messages, heights, font1)
+    high_score = highscore(game)
+    message = font1.render("HIGHSCORE: " + str(high_score), True, (255, 0, 0))
+    game.display.blit(message, (65, 475))
+    mostcoins = most_coins(game)
+    message = font1.render("MOST COINS: " + str(mostcoins), True, (255, 0, 0))
+    game.display.blit(message, (65, 505))
 
 def draw_game(game):
     """Handles drawing everything during the game.
@@ -127,9 +150,9 @@ def draw_game(game):
     Args:
         game: game object
     """
-    colors = [(187, 255, 255), (174, 238, 238), (150, 205, 205),
+    colors = [(187, 255, 255), (160, 238, 238), (150, 205, 205),
                 (123, 185, 200), (79, 148, 205), (0, 154, 205), (10,115,205), (0,75,170)]
-    score_tresholds = [0, 100, 300, 500, 700, 900, 1100, 1400]#[0,20,30,40,50,60,80,100]
+    score_tresholds = [0, 100, 300, 500, 700, 900, 1100, 1400]
     for i, score_treshold in enumerate(score_tresholds):
         if game.score > score_treshold:
             color = colors[i]
@@ -218,3 +241,37 @@ def check_collisions(game, platforms, coins, player):
         if coin.rect.colliderect(player.rect):
             coin.kill()
             game.coins_collected += 1
+
+def highscore(game):
+    """Reads and writes file with highscore.
+
+    Args:
+        game: game object
+    """
+    if os.path.exists("highscore.txt"):
+        with open("highscore.txt", "r", encoding="utf-8") as file:
+            high_score = int(file.read())
+    else:
+        high_score = 0
+    if game.gameover and (game.score > high_score):
+        high_score = f"{game.score:.0f}"
+        with open("highscore.txt", "w", encoding="utf-8") as file:
+            file.write(high_score)
+    return high_score
+
+def most_coins(game):
+    """Reads and writes file with number of most coins collected.
+
+    Args:
+        game: game object
+    """
+    if os.path.exists("most_coins.txt"):
+        with open("most_coins.txt", "r", encoding="utf-8") as file:
+            mostcoins = int(file.read())
+    else:
+        mostcoins = 0
+    if game.gameover and (game.coins_collected > mostcoins):
+        mostcoins = str(game.coins_collected)
+        with open("most_coins.txt", "w", encoding="utf-8") as file:
+            file.write(mostcoins)
+    return mostcoins
