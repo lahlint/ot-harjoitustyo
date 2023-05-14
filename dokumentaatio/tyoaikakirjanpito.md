@@ -13,4 +13,5 @@
 |13.5.|2|pylint virheiden korjaamista ja highscoren lisääminen|
 |14.5.|1|docstring-dokumentaatiota|
 |14.5|3|most coins lisääminen, startmenu- ja gameover- näkymien uudistus yhteensopivaksi highscoren ja most coins kanssa|
-|yhteensä|38||
+|14.5|3|startmenu- ja gameover-näkymien piirtämisen yksinkertaistaminen apufunktion avulla, dokumentaation päivitystä, mm. käyttöohjeet lisätty, määrittelydokumentti päivitetty|
+|yhteensä|41||
