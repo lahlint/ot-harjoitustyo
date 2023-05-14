@@ -21,3 +21,12 @@
     - pelissä voi kerätä kolikoita
     - kerättyjen kolikoiden määrän voi nähdä pelin aikana ylälaidassa sekä gameover-näkymässä
 - Coin-luokan testiluokka ja testit lisätty
+
+## Viikko 7
+
+- Highscore lisätty
+    - parhaan tuloksen voi nähdä startmenu- ja gameover-näkymissä
+    - highscore tallentuu tiedostoon ja luetaan sieltä tarvittaessa
+- Most coins lisätty
+    - suurimman määrän kerättyjä kolikoita voi nähdä nähdä startmenu- ja gameover-näkymissä
+    - tallentuu highscoren tapaan tiedostoon
