@@ -1,7 +1,8 @@
 import os
 import pygame
 
-path = "ot-harjoitustyo/src/sprites/"
+
+path = "ot-harjoitustyo/src/sprites/" #pylint: disable=C0103
 dirname = os.path.dirname(__file__)
 
 
@@ -20,7 +21,7 @@ class Player(pygame.sprite.Sprite):
         speed: determines speed
     """
     def __init__(self, p_x=170, p_y=370):
-        """Class constructor that crates player.
+        """Class constructor that creates player.
 
         Args:
             p_x: x-coordinate of rect
@@ -42,7 +43,6 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         """Updates players position and checks for falling off screen.
         """
-
         if self.move_l and self.rect.x > 0:
             self.rect.x -= 5
         if self.move_r and self.rect.x + self.image.get_width() < 400:

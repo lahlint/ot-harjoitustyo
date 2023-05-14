@@ -2,6 +2,7 @@ import unittest
 from sprites.platform import Platform
 from game import Game
 
+
 class TestPlatform(unittest.TestCase):
     def setUp(self):
         self.platform = Platform(100,100,64)

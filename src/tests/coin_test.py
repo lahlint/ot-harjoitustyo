@@ -2,6 +2,7 @@ import unittest
 from sprites.coin import Coin
 from game import Game
 
+
 class TestCoin(unittest.TestCase):
     def setUp(self):
         self.coin = Coin(200,200)

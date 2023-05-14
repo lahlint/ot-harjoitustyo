@@ -1,7 +1,8 @@
 import os
 import pygame
 
-path = "ot-harjoitustyo/src/sprites/"
+
+path = "ot-harjoitustyo/src/sprites/" #pylint: disable=C0103
 dirname = os.path.dirname(__file__)
 
 
@@ -11,8 +12,8 @@ class BoostPlatform(pygame.sprite.Sprite):
     Attributes:
         image: platform image
         rect: rectangle, the size of the image, for collisions
-        rect.x: x-coordinate of platforms rect
-        rect.y: y-coordinate of platforms rect
+        rect.x: x-coordinate of platform's rect
+        rect.y: y-coordinate of platform's rect
         width: width of platform
         boost: helps differentiate between different kinds of platforms in other parts of code
     """
@@ -20,8 +21,8 @@ class BoostPlatform(pygame.sprite.Sprite):
         """Class constructor that creates a new platform
 
         Args:
-            p_x: platforms x-coordinate
-            p_y: platforms y-coordinate
+            p_x: x-coordinate of platform
+            p_y: y-coordinate of platform
             width: platfroms width
         """
         super().__init__()
@@ -40,7 +41,6 @@ class BoostPlatform(pygame.sprite.Sprite):
         Args:
             scroll: determines how much platform needs to go down depending on how player advances.
         """
-
         self.rect.y += scroll
         if self.rect.y > 600:
             self.kill()
