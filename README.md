@@ -1,4 +1,4 @@
-# Tasohyppelypeli
+# Platform jumping game
 
 Tässä tasohyppelypelissä perusideana on yrittää päästä mahdollisimman korkealle putoamatta, hyppelemällä tasolta toiselle sekä kerätä kolikoita matkalla.
 
