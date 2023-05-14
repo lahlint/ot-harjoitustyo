@@ -13,7 +13,7 @@ Tässä tasohyppelypelissä perusideana on yrittää päästä mahdollisimman ko
 
 ## Ohjelman käynnistäminen ja komennot
 
-Voit ladata viimeisimmän releasen lähdekoodin [täältä](https://github.com/lahlint/ot-harjoitustyo/releases/tag/viikko6) valitsemalla Assets-osion alta Source code.
+Voit ladata viimeisimmän releasen lähdekoodin [täältä](https://github.com/lahlint/ot-harjoitustyo/releases/tag/Loppupalautus) valitsemalla Assets-osion alta Source code.
 
 ### Käynnistäminen
 
