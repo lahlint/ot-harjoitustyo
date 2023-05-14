@@ -5,6 +5,7 @@ Tässä tasohyppelypelissä perusideana on yrittää päästä mahdollisimman ko
 ## Dokumentaatio
 
 * [Vaatimusmäärittely](https://github.com/lahlint/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
+* [Käyttöohje](https://github.com/lahlint/ot-harjoitustyo/blob/main/dokumentaatio/kayttoohje.md)
 * [Työaikakirjanpito](https://github.com/lahlint/ot-harjoitustyo/blob/main/dokumentaatio/tyoaikakirjanpito.md)
 * [Arkkitehtuuri](https://github.com/lahlint/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
 * [Changelog](https://github.com/lahlint/ot-harjoitustyo/blob/main/dokumentaatio/changelog.md)
